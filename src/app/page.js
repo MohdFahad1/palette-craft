@@ -1,5 +1,6 @@
 "use client";
 import DisplayImage from "./component/DisplayImage";
+import Footer from "./component/Footer";
 import Header from "./component/Header";
 import React, { useState } from "react";
 
@@ -10,6 +11,7 @@ export default function Home() {
     <>
       <Header setImage={setImage} />
       <DisplayImage image={image} />
+      <Footer />
     </>
   );
 }

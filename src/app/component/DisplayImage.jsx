@@ -64,7 +64,7 @@ function DisplayImage({ image }) {
           style={{ objectFit: "contain" }}
         />
       </div>
-      <div className="flex flex-col flex-wrap items-center justify-center gap-10 mt-0 md:mt-5 md:flex-row">
+      <div className="flex flex-col flex-wrap items-center justify-center gap-10 mt-0 mb-20 md:mt-5 md:flex-row">
         {palettes.map((hex, index) => (
           <div
             key={index}
