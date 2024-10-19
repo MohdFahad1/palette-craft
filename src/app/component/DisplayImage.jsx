@@ -5,7 +5,6 @@ function DisplayImage({ image }) {
   const imageRef = useRef(null);
   const [palettes, setPalettes] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [text, setText] = useState("");
 
   const rgbToHex = (r, g, b) =>
     "#" +
@@ -20,7 +19,7 @@ function DisplayImage({ image }) {
     if (loaded && imageRef.current) {
       const colorThief = new ColorThief();
       try {
-        const palette = colorThief.getPalette(imageRef.current, 6);
+        const palette = colorThief.getPalette(imageRef.current, 10);
         const hexPalette = palette.map((color) =>
           rgbToHex(color[0], color[1], color[2])
         );
@@ -65,7 +64,7 @@ function DisplayImage({ image }) {
           style={{ objectFit: "contain" }}
         />
       </div>
-      <div className="flex flex-col gap-10 mt-0 md:mt-5 md:flex-row">
+      <div className="flex flex-col flex-wrap items-center justify-center gap-10 mt-0 md:mt-5 md:flex-row">
         {palettes.map((hex, index) => (
           <div
             key={index}
