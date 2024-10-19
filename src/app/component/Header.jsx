@@ -23,7 +23,7 @@ function Header({ setImage }) {
       <h1 className="flex items-center gap-1 text-2xl font-semibold text-transparent md:text-3xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text">
         <Image
           src={"/logo.png"}
-          alt="logo"
+          alt="Palette Craft Logo"
           height={20}
           width={30}
           className="w-auto h-auto"

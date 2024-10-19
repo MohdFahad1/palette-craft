@@ -57,7 +57,7 @@ function DisplayImage({ image }) {
         )}
         <img
           src={image}
-          alt="Uploaded"
+          alt="Uploaded Image"
           ref={imageRef}
           className={loaded ? "w-full h-full" : "hidden"}
           onLoad={() => setLoaded(true)}
