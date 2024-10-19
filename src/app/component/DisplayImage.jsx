@@ -5,8 +5,7 @@ function DisplayImage({ image }) {
   const imageRef = useRef(null);
   const [palettes, setPalettes] = useState([]);
   const [loaded, setLoaded] = useState(false);
-
-  console.log(palettes);
+  const [text, setText] = useState("");
 
   const rgbToHex = (r, g, b) =>
     "#" +
@@ -21,7 +20,7 @@ function DisplayImage({ image }) {
     if (loaded && imageRef.current) {
       const colorThief = new ColorThief();
       try {
-        const palette = colorThief.getPalette(imageRef.current, 5);
+        const palette = colorThief.getPalette(imageRef.current, 6);
         const hexPalette = palette.map((color) =>
           rgbToHex(color[0], color[1], color[2])
         );
@@ -32,9 +31,19 @@ function DisplayImage({ image }) {
     }
   }, [image, loaded]);
 
+  const handleCopyClick = async (hex) => {
+    try {
+      await window.navigator.clipboard.writeText(hex);
+      alert(`Copied: ${hex}`);
+    } catch (error) {
+      console.log("Unable to copy to clipboard: ", error);
+      alert("Copy to clipboard failed");
+    }
+  };
+
   return (
     <main className="flex flex-col items-center justify-center p-5">
-      <div className="relative h-[400px] w-[500px]">
+      <div className="relative md:h-[400px] h-[300px] md:w-[500px] w-full">
         {!loaded && (
           <div className="flex flex-col items-center justify-center text-center">
             <iframe
@@ -51,12 +60,12 @@ function DisplayImage({ image }) {
           src={image}
           alt="Uploaded"
           ref={imageRef}
-          className={loaded ? "" : "hidden"}
+          className={loaded ? "w-full h-full" : "hidden"}
           onLoad={() => setLoaded(true)}
-          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+          style={{ objectFit: "contain" }}
         />
       </div>
-      <div className="flex gap-10 mt-5">
+      <div className="flex flex-col gap-10 mt-0 md:mt-5 md:flex-row">
         {palettes.map((hex, index) => (
           <div
             key={index}
@@ -64,8 +73,9 @@ function DisplayImage({ image }) {
               backgroundColor: hex,
             }}
             className="flex justify-between flex-col items-center h-[150px] w-[180px] rounded-xl cursor-pointer"
+            onClick={() => handleCopyClick(hex)}
           >
-            <div className="flex items-center justify-center h-full">
+            <div className="flex items-center justify-center h-full text-2xl font-semibold">
               <h1>{hex}</h1>
             </div>
             <div className="flex items-center justify-center w-full h-8 border-t-2 border-white">
